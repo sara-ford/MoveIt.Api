@@ -4,12 +4,14 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using MoveIt.Data.DataRepository;
+
 
 #nullable disable
 
 namespace MoveIt.Data.Migrations
 {
-    [DbContext(typeof(MoveIt))]
+    [DbContext(typeof(MoveItContext))]
     partial class MoveItModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

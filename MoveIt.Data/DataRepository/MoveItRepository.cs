@@ -1,29 +1,41 @@
 ﻿using MoveIt.Core.Models;
+using MoveIt.Core.Repository;
 using Microsoft.EntityFrameworkCore;
 
 namespace MoveIt.Data.DataRepository
 {
-    public class MoveItRepository : DbContext
+    public partial class DataRepository : IDataRepository
     {
-        public MoveItRepository()
+        private readonly MoveItContext _dbContext;
+
+        public DataRepository(MoveItContext dbContext)
         {
+            _dbContext = dbContext;
+        }
+        public async Task<Members?> GetMemberById(int id)
+        {
+            return await _dbContext.Members.Where(x => x.Id == id).FirstOrDefaultAsync();
         }
 
-        public MoveItRepository(DbContextOptions<MoveItRepository> options) : base(options)
+        public async Task<int> AddMember(Members Member)
         {
+            _dbContext.Members.Add(Member);
+            return await _dbContext.SaveChangesAsync();
         }
 
-        public DbSet<Classes> Classes { get; set; }
-        public DbSet<Members> Members { get; set; }
-        public DbSet<ClassRegistrations> ClassRegistrations { get; set; }
-        public DbSet<Trainers> Trainers { get; set; }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        public async Task<int> UpdateMember(Members Member)
         {
-            if (!optionsBuilder.IsConfigured)
-            {
-                optionsBuilder.UseSqlServer("Server=BSIATSDISHMAYA\\SQLEXPRESS;Database=MoveIt;Trusted_Connection=True;TrustServerCertificate=True;");
-            }
+            var entity = await _dbContext.Members.Where(x => x.Id == Member.Id).FirstAsync();
+            _dbContext.Entry(entity).CurrentValues.SetValues(Member);
+            return await _dbContext.SaveChangesAsync();
         }
+
+        public async Task<int> DeleteMember(int MemberId)
+        {
+            var entity = await _dbContext.Members.Where(x => x.Id == MemberId).FirstAsync();
+            //entity.IsActive = false;
+            return await _dbContext.SaveChangesAsync();
+        }
+
     }
 }

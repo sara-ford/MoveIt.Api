@@ -5,12 +5,13 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using MoveIt.Data.DataRepository;
 
 #nullable disable
 
 namespace MoveIt.Data.Migrations
 {
-    [DbContext(typeof(MoveIt))]
+    [DbContext(typeof(MoveItContext))]
     [Migration("20250519190609_m1")]
     partial class m1
     {
