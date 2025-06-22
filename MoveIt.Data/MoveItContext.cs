@@ -11,6 +11,9 @@ namespace MoveIt.Data
         public MoveItContext(DbContextOptions options) : base(options)
         {
         }
+        public DbSet<Classes> Classes { get; set; }
+        public DbSet<ClassRegistrations> ClassRegistrations { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

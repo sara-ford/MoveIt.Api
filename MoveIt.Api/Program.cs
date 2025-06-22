@@ -20,6 +20,9 @@ builder.Services.AddDbContext<MoveItContext>(options =>
 // הוסיפי את ה-services שלך
 builder.Services.AddScoped<IMemberService, MembersService>();
 builder.Services.AddScoped<IDataRepository, DataRepository>();
+builder.Services.AddScoped<IClassService, ClassService>();
+builder.Services.AddScoped<IClassRepository, ClassRepository>();
+
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 

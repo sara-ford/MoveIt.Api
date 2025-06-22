@@ -34,10 +34,8 @@ namespace MoveIt.Api.Controllers
         [HttpPost]
         public async Task<ActionResult<int>> AddMember([FromBody] MemberResource memberResource)
         {
-            // המרת ה-DTO למודל
             var member = _mapper.Map<Members>(memberResource);
 
-            // הוספת ה-member
             var result = await _MembersService.AddMember(member);
 
             if (result == 0)
@@ -46,7 +44,7 @@ namespace MoveIt.Api.Controllers
                 return BadRequest("Failed to add member");
             }
 
-            return Ok(result); // מחזיר כמה שורות הושפעו (למשל 1 אם הצליח)
+            return Ok(result); 
         }
 
     }
